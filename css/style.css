@@ -1,0 +1,146 @@
+/* reset */
+body, h1, p, li, h2, ul, blockquote{
+  margin: 0px;
+  padding: 0px;
+}
+
+body{
+  font-family: "Volkorn", Georgia, serif;
+}
+
+li{
+  list-style: none;
+}
+
+a{
+  text-decoration: none;
+}
+
+img{
+  max-width: 100%;
+  display: block;
+  border-radius: 5px;
+}
+
+/* Grid geral */
+.estrutura{
+  display: grid;
+  /* 1 coluna: min max n diminui o conteudo mais que 160px e coloca ele no maximo 1fr 
+  2 coluna: 3fr pq expande em uma proporção maior em relação as outras
+  3 coluna: valor fixo para n diminuir nem aumentar automaticamente*/
+  grid-template-columns: minmax(160px, 1fr) 3fr 300px;
+  /* definindo as areas dogrid areas */
+  grid-template-areas: 
+    "header header header"
+    "sidenav content anuncios"
+    "footer footer footer"
+  ;
+}
+
+/* header */
+.header{
+  grid-area: header;
+  background: linear-gradient(135deg, #8844ee, #b07dfb);
+  padding: 30px;
+  display: grid;
+  /* 1fr para expandir a marca e automatico para pegar o tamanho automatico do menu */
+  grid-template-columns: 1fr auto;
+  align-items: center;
+}
+
+.logo{
+  max-width: 200px;
+}
+
+.header nav ul{
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.header nav a{
+  display: block;
+  padding: 10px;
+  color: white;
+  font-size: 1.125rem;
+  background: rgba(0, 0, 0, .1);
+  border-radius: 5px;
+  transition: 0.1s;
+}
+
+.header nav a:hover{
+  background: rgba(0, 0, 0, .5);
+}
+
+/* solucao usada ara impedir que se crie a margin antes do li */
+header li + li{
+  margin-left: 30px;
+}
+
+
+/* sidenav */
+.sidenav{
+  grid-area: sidenav;
+  background: #fafbfc;
+  padding: 30px;
+}
+
+.sidenav li a{
+  display: block;
+  min-width: 60px;
+  max-width: 100px;
+  margin: 0 auto 30px auto;
+  background: white;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 5px 5px 15px 0px rgba(44, 44, 44, 0.15);
+  transition: .1s ease-out;
+}
+
+.sidenav li a:hover{
+  background: #b07dfb;
+}
+
+
+/* content */
+.content{
+  grid-area: content;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 30px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+}
+
+.col-wide{
+  grid-column: 1 / -1;
+}
+
+.imagem-1{
+  grid-row: span 2;
+  /* lembrando que sel sempre é o item em especifico ja items é todos os itens*/
+  align-self: end;
+}
+
+/* anuncios */
+.anuncios{
+  grid-area: anuncios;
+  background: #fafbfc;
+  display: grid;
+  align-content: start;
+  padding: 30px;
+  gap: 30px;
+}
+
+
+/* footer */
+.footer{
+  grid-area: footer;
+  background: linear-gradient(135deg, #8844ee, #b07dfb);
+}
+
+.footer p{
+  color: white;
+  text-align: center;
+  padding: 30px;
+}
