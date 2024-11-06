@@ -1,44 +1,71 @@
 /* reset */
-body, h1, p, li, h2, ul, blockquote{
+body,
+h1,
+p,
+li,
+h2,
+ul,
+blockquote {
   margin: 0px;
   padding: 0px;
 }
 
-body{
+body {
   font-family: "Volkorn", Georgia, serif;
 }
 
-li{
+li {
   list-style: none;
 }
 
-a{
+a {
   text-decoration: none;
 }
 
-img{
+img {
   max-width: 100%;
   display: block;
   border-radius: 5px;
 }
 
 /* Grid geral */
-.estrutura{
+.estrutura {
   display: grid;
   /* 1 coluna: min max n diminui o conteudo mais que 160px e coloca ele no maximo 1fr 
   2 coluna: 3fr pq expande em uma proporção maior em relação as outras
   3 coluna: valor fixo para n diminuir nem aumentar automaticamente*/
   grid-template-columns: minmax(160px, 1fr) 3fr 300px;
   /* definindo as areas dogrid areas */
-  grid-template-areas: 
+  grid-template-areas:
     "header header header"
     "sidenav content anuncios"
-    "footer footer footer"
-  ;
+    "footer footer footer";
+}
+
+@media (max-width: 1200px) {
+  .estrutura {
+    grid-template-areas:
+      "header header header"
+      "sidenav content content"
+      "sidenav anuncios anuncios"
+      "footer footer footer";
+  }
+}
+
+@media (max-width: 760px) {
+  .estrutura {
+    grid-template-columns: 100%;
+    grid-template-areas:
+      "header"
+      "sidenav"
+      "content"
+      "anuncios"
+      "footer";
+  }
 }
 
 /* header */
-.header{
+.header {
   grid-area: header;
   background: linear-gradient(135deg, #8844ee, #b07dfb);
   padding: 30px;
@@ -48,43 +75,60 @@ img{
   align-items: center;
 }
 
-.logo{
+.logo {
   max-width: 200px;
 }
 
-.header nav ul{
+.header nav ul {
   display: flex;
   flex-wrap: wrap;
 }
 
-.header nav a{
+.header nav a {
   display: block;
   padding: 10px;
   color: white;
   font-size: 1.125rem;
-  background: rgba(0, 0, 0, .1);
+  background: rgba(0, 0, 0, 0.1);
   border-radius: 5px;
   transition: 0.1s;
 }
 
-.header nav a:hover{
-  background: rgba(0, 0, 0, .5);
+.header nav a:hover {
+  background: rgba(0, 0, 0, 0.5);
 }
 
 /* solucao usada ara impedir que se crie a margin antes do li */
-header li + li{
+header li + li {
   margin-left: 30px;
 }
 
+@media (max-width: 760px) {
+  .header {
+    grid-template-columns: auto;
+  }
+
+  .logo {
+    margin-bottom: 20px;
+  }
+
+  .header nav a {
+    font-size: 1rem;
+  }
+
+  header li + li {
+    margin-left: 10px;
+  }
+}
 
 /* sidenav */
-.sidenav{
+.sidenav {
   grid-area: sidenav;
   background: #fafbfc;
   padding: 30px;
 }
 
-.sidenav li a{
+.sidenav li a {
   display: block;
   min-width: 60px;
   max-width: 100px;
@@ -93,16 +137,56 @@ header li + li{
   padding: 20px;
   border-radius: 5px;
   box-shadow: 5px 5px 15px 0px rgba(44, 44, 44, 0.15);
-  transition: .1s ease-out;
+  transition: 0.1s ease-out;
 }
 
-.sidenav li a:hover{
+.sidenav li a:hover {
   background: #b07dfb;
 }
 
+@media (max-width: 760px) {
+  .sidenav ul {
+    display: flex;
+  }
+
+  .sidenav ul li {
+    /* cresce e oculpa todo espaco disponivel */
+    flex: 1 0 60px;
+  }
+
+  .sidenav {
+    position: relative;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    -ms-overflow-style: -ms-autohiding-scrollbar;
+    padding: 0 30px;
+  }
+
+  @keyframes seta {
+    from{
+      right: 30px;
+    }
+    to{
+      right: 20px;
+    }
+  }
+
+  .sidenav::after{
+    content: "→";
+    position: absolute;
+    color: rgba(0, 0, 0, .3);
+    top: 5px;
+    right: 30px;
+    animation: seta .5s ease-in 0s infinite alternate;
+  }
+
+  .sidenav li a {
+    margin: 30px 30px 30px 0;
+  }
+}
 
 /* content */
-.content{
+.content {
   grid-area: content;
   max-width: 900px;
   margin: 0 auto;
@@ -112,18 +196,124 @@ header li + li{
   gap: 30px;
 }
 
-.col-wide{
+.col-wide {
   grid-column: 1 / -1;
 }
 
-.imagem-1{
+.imagem-1 {
   grid-row: span 2;
-  /* lembrando que sel sempre é o item em especifico ja items é todos os itens*/
+  /* lembrando que self sempre é o item em especifico ja items é todos os itens*/
   align-self: end;
 }
 
+.imagem-2 {
+  align-self: end;
+}
+
+/* estilos gerais content */
+p {
+  font-size: 1.2rem;
+  line-height: 1.6;
+  letter-spacing: -0.005rem;
+  color: rgba(0, 0, 0, 0.7);
+}
+
+.informacoes p + p {
+  margin-top: 30px;
+}
+
+/* titulo */
+.titulo {
+  color: #b07dfb;
+}
+
+.titulo h1 {
+  font-size: 3.75rem;
+  line-height: 1;
+  font-weight: 700;
+}
+
+.titulo span {
+  font-size: 0.875rem;
+  font-style: italic;
+}
+
+/* caracteristicas */
+.caracteristicas {
+  display: flex;
+  align-items: flex-start;
+}
+
+.caracteristicas > div {
+  width: 80px;
+  text-align: center;
+  background: linear-gradient(135deg, #8844ee, #b07dfb);
+  border-radius: 5px;
+  box-shadow: 5px 5px 15px 0px rgba(44, 44, 44, 0.15);
+  position: relative;
+}
+
+.caracteristicas > div:first-child {
+  margin-right: 30px;
+}
+
+.caracteristicas span {
+  display: block;
+  color: #b07dfb;
+}
+
+.numero {
+  color: #b07dfb;
+  font-size: 3rem;
+  line-height: 1;
+  margin: 10px auto;
+}
+
+.rotulo {
+  background: white;
+  border-radius: 0 0 5px 5px;
+  padding: 5px 0px;
+  position: relative;
+  top: 2px;
+}
+
+.destaque {
+  font-size: 0.875rem;
+  color: #b07dfb;
+  max-width: 28ch;
+}
+
+.citacao,
+.atributos {
+  align-self: start;
+  background: linear-gradient(135deg, #8844ee, #b07dfb);
+  padding: 30px;
+  border-radius: 5px;
+  box-shadow: 5px 5px 15px 0px rgba(44, 44, 44, 0.15);
+}
+
+.citacao p {
+  font-size: 1.5rem;
+  font-style: italic;
+  text-align: center;
+  max-width: 500px;
+  margin: 0 auto;
+  color: white;
+}
+
+.atributos li {
+  color: white;
+  font-family: Courier, monospace;
+  font-size: 1.125rem;
+  padding: 15px;
+}
+
+.atributos li + li {
+  border-top: 2px solid #b07dfb;
+}
+
 /* anuncios */
-.anuncios{
+.anuncios {
   grid-area: anuncios;
   background: #fafbfc;
   display: grid;
@@ -132,14 +322,13 @@ header li + li{
   gap: 30px;
 }
 
-
 /* footer */
-.footer{
+.footer {
   grid-area: footer;
   background: linear-gradient(135deg, #8844ee, #b07dfb);
 }
 
-.footer p{
+.footer p {
   color: white;
   text-align: center;
   padding: 30px;
