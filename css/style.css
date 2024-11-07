@@ -23,7 +23,7 @@ a {
 }
 
 img {
-  max-width: 100%;
+  width: 100%;
   display: block;
   border-radius: 5px;
 }
@@ -196,13 +196,19 @@ header li + li {
   gap: 30px;
 }
 
+@media(max-width: 600px){
+  .content {
+    grid-template-columns: auto;
+  }
+}
+
 .col-wide {
   grid-column: 1 / -1;
 }
 
 .imagem-1 {
   grid-row: span 2;
-  /* lembrando que self sempre é o item em especifico ja items é todos os itens*/
+  /* lembrando que self sempre conversa com o item em especifico ja items é todos os itens do conteudo*/
   align-self: end;
 }
 
@@ -317,6 +323,8 @@ p {
   grid-area: anuncios;
   background: #fafbfc;
   display: grid;
+  /* auto fit faz com que crie colunas ou linhas automaticamente respeitando o minmax que fala que o conteudo vai ter no minimo 150px n podendo diminuir o mesmo. Quando o valor chegar a 150px o auto fit cria outra linha para n estourar o container, e um 1fr é o maximo que o conteudo vai chegar*/
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
   align-content: start;
   padding: 30px;
   gap: 30px;
